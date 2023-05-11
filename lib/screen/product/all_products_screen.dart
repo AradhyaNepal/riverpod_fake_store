@@ -24,7 +24,7 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = (ref.watch(allProductsController) as StateData<List<String>>);
+    final state = (ref.watch(allProductsController) as GenericState<List<String>>);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: SizedBox(

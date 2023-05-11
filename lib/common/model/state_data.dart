@@ -1,25 +1,25 @@
 import 'package:riverpod_fake_store_api/common/enum/status.dart';
 
-class StateData<T> {
+class GenericState<T> {
   Status status;
   T data;
   String errorMessage;
 
-  StateData({
+  GenericState({
     required this.status,
     required this.data,
     required this.errorMessage,
   });
 
-  factory StateData.loading(T initialValue) =>
-      StateData(status: Status.loading, data: initialValue, errorMessage: "");
+  factory GenericState.loading(T initialValue) =>
+      GenericState(status: Status.loading, data: initialValue, errorMessage: "");
 
-  StateData<T> copyWith({
+  GenericState<T> copyWith({
     Status? status,
     T? data,
     String? errorMessage,
   }) {
-    return StateData<T>(
+    return GenericState<T>(
         status: status ?? this.status,
         data: data ?? this.data,
         errorMessage: errorMessage ?? this.errorMessage);

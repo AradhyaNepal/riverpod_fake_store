@@ -6,13 +6,13 @@ import 'package:riverpod_fake_store_api/screen/product/repository/all_product_re
 import '../../../common/enum/status.dart';
 
 final allProductsController =
-    StateNotifierProvider((ref) => AllProductsList(StateData<List<String>>.loading([])));
+    StateNotifierProvider((ref) => AllProductsList(GenericState<List<String>>.loading([])));
 
-class AllProductsList extends StateNotifier<StateData<List<String>>> {
+class AllProductsList extends StateNotifier<GenericState<List<String>>> {
   AllProductsList(super.state);
 
   void fetchAllProduct(WidgetRef ref) async {
-    final token = ref.read(userAuthController.notifier).state.token;
+    final token = ref.read(userAuthController.notifier).state.data.token;
     final data = await AllProductRepository().fetchAllProduct(token);
     if (data == null) {
       state.copyWith(

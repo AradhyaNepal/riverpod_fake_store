@@ -6,7 +6,11 @@ import 'package:riverpod_fake_store_api/screen/product/all_products_screen.dart'
 import 'screen/auth/provider/user_auth_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

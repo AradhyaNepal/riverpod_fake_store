@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_fake_store_api/screen/auth/login_screen.dart';
 import 'package:riverpod_fake_store_api/screen/product/all_products_screen.dart';
 
-import 'screen/auth/provider/user_auth_controller.dart';
+import 'screen/auth/provider/user_auth_provider.dart';
 
 void main() {
   runApp(

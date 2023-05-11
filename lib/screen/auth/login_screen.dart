@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_controller.dart';
+import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_provider.dart';
 
 import '../../common/model/state_data.dart';
 import 'model/auth.dart';

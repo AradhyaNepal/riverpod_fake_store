@@ -2,7 +2,7 @@ import 'package:riverpod_fake_store_api/common/enum/status.dart';
 
 class GenericState<T> {
   Status status;
-  T data;
+  T? data;
   String errorMessage;
 
   GenericState({
@@ -11,7 +11,7 @@ class GenericState<T> {
     required this.errorMessage,
   });
 
-  factory GenericState.loading(T initialValue) =>
+  factory GenericState.loading({T? initialValue}) =>
       GenericState(status: Status.loading, data: initialValue, errorMessage: "");
 
   GenericState<T> copyWith({

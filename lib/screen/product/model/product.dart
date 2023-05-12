@@ -1,4 +1,6 @@
-class Product {
+abstract class ProductAbstract{}
+class NoProduct extends ProductAbstract{}
+class Product extends ProductAbstract{
   int id;
   String title;
   double price;
@@ -34,7 +36,7 @@ class Product {
 
   @override
   String toString() {
-    return "Id = $id\nTitle = $title\n Price = $price \n Description = $description \n Category = $category\n Rating = $rating\n Count = $count";
+    return "Id = $id\n\nTitle = $title\n\n Price = $price \n\n Description = $description \n\n Category = $category\n\n Rating = $rating\n\n Count = $count";
   }
 
 }

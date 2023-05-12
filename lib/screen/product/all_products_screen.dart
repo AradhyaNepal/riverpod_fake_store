@@ -4,7 +4,9 @@ import 'package:riverpod_fake_store_api/common/model/state_data.dart';
 import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/model/product.dart';
 import 'package:riverpod_fake_store_api/screen/product/provider/all_products_provider.dart';
-import 'package:riverpod_fake_store_api/screen/product/specific_product_screen.dart';
+import 'package:riverpod_fake_store_api/screen/product/provider/is_family_provider.dart';
+import 'package:riverpod_fake_store_api/screen/product/specific_family_product_screen.dart';
+import 'package:riverpod_fake_store_api/screen/product/widget/product_item_widget.dart';
 
 import '../../common/enum/status.dart';
 
@@ -36,9 +38,10 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              "All Products",
+              "Products",
             ),
             actions: [
+              const _IsFamilySwitchWidget(),
               IconButton(
                 onPressed: () {
                   ref.read(userAuthController.notifier).logout();
@@ -65,6 +68,7 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
                     ),
                   );
                 case Status.success:
+                  final data = state.data;
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -72,23 +76,16 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SpecificProductScreen(
-                                id: state.data[index].id,
+                              builder: (context) => SpecificFamilyProductScreen(
+                                id: data[index].id,
                               ),
                             ),
                           );
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          child: Text(
-                            state.data[index].toString(),
-                          ),
-                        ),
+                        child: ProductItemWidget(data: data[index]),
                       );
                     },
-                    itemCount: state.data.length,
+                    itemCount: data.length,
                   );
               }
             },
@@ -98,3 +95,33 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
     );
   }
 }
+
+class _IsFamilySwitchWidget extends ConsumerWidget {
+  const _IsFamilySwitchWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context,WidgetRef ref) {
+    return Row(
+      children: [
+        const Text(
+          "Use Family:",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            fontSize: 17,
+          ),
+        ),
+        Switch(
+            activeColor:Colors.white,
+          value: ref.watch(isFamilyProvider),
+          onChanged: (value){
+            ref.watch(isFamilyProvider.notifier).update((state) => value);
+          },
+        ),
+      ],
+    );
+  }
+}
+

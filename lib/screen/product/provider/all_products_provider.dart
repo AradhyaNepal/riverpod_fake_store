@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_fake_store_api/common/model/state_data.dart';
 import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/model/product.dart';
-import 'package:riverpod_fake_store_api/screen/product/repository/all_product_repository.dart';
+import 'package:riverpod_fake_store_api/screen/product/repository/product_repository.dart';
 
 import '../../../common/enum/status.dart';
 

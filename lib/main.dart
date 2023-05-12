@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ref.watch(isRegistered)
+      home: ref.watch(isRegisteredController)
           ? const AllProductScreen()
           : const LoginScreen(),
     );

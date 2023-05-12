@@ -5,7 +5,9 @@ import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_provider.
 import 'package:riverpod_fake_store_api/screen/product/model/product.dart';
 import 'package:riverpod_fake_store_api/screen/product/provider/all_products_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/provider/is_family_provider.dart';
+import 'package:riverpod_fake_store_api/screen/product/provider/specific_product_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/specific_family_product_screen.dart';
+import 'package:riverpod_fake_store_api/screen/product/specific_override_product_screen.dart';
 import 'package:riverpod_fake_store_api/screen/product/widget/product_item_widget.dart';
 
 import '../../common/enum/status.dart';
@@ -73,14 +75,7 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SpecificFamilyProductScreen(
-                                id: data[index].id,
-                              ),
-                            ),
-                          );
+                          _navigateToSpecificScreen(data, index);
                         },
                         child: ProductItemWidget(data: data[index]),
                       );
@@ -94,6 +89,40 @@ class _AllProductScreenState extends ConsumerState<AllProductScreen> {
       ),
     );
   }
+
+  void _navigateToSpecificScreen(List<Product> data, int index) {
+    switch (ref.read(isFamilyController)) {
+      case true:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SpecificFamilyProductScreen(
+              id: data[index].id,
+            ),
+          ),
+        );
+        break;
+      case false:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProviderScope(
+              overrides: [
+                specificOverrideProductController.overrideWith(
+                  (ref) => SpecificProductState(
+                    GenericState.loading(NoProduct()),
+                    id: data[index].id,
+                    ref: ref,
+                  ),
+                )
+              ],
+              child: const SpecificOverrideProductScreen(),
+            ),
+          ),
+        );
+        break;
+    }
+  }
 }
 
 class _IsFamilySwitchWidget extends ConsumerWidget {
@@ -102,7 +131,7 @@ class _IsFamilySwitchWidget extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         const Text(
@@ -114,14 +143,13 @@ class _IsFamilySwitchWidget extends ConsumerWidget {
           ),
         ),
         Switch(
-            activeColor:Colors.white,
-          value: ref.watch(isFamilyProvider),
-          onChanged: (value){
-            ref.watch(isFamilyProvider.notifier).update((state) => value);
+          activeColor: Colors.white,
+          value: ref.watch(isFamilyController),
+          onChanged: (value) {
+            ref.watch(isFamilyController.notifier).update((state) => value);
           },
         ),
       ],
     );
   }
 }
-

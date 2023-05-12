@@ -30,7 +30,9 @@ class LoginScreen extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
-                    SizedBox(height: 25,),
+                    SizedBox(
+                      height: 25,
+                    ),
                     Text(
                       "Login With FingerPrint",
                       textAlign: TextAlign.center,
@@ -38,12 +40,16 @@ class LoginScreen extends ConsumerWidget {
                         fontSize: 25,
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(
+                      height: 25,
+                    ),
                     Icon(
                       Icons.fingerprint,
                       size: 100,
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(
+                      height: 25,
+                    ),
                   ],
                 ),
               ),
@@ -51,8 +57,7 @@ class LoginScreen extends ConsumerWidget {
                 height: 30,
               ),
               Text(
-                (ref.watch(userAuthController) as GenericState<Auth>)
-                    .errorMessage,
+                ref.watch(userAuthController).errorMessage,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,

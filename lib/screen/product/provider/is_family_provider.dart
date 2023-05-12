@@ -1,3 +1,3 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final isFamilyProvider=StateProvider<bool>((ref) => true);
+final isFamilyController=StateProvider<bool>((ref) => true);

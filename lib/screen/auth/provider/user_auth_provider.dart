@@ -5,11 +5,10 @@ import 'package:riverpod_fake_store_api/screen/auth/fake_server/fake_login.dart'
 
 import '../model/auth.dart';
 
-final isRegistered = StateProvider<bool>((ref) {
-  final value = ref.watch(userAuthController) as GenericState<Auth>;
-  return !value.data.notRegistered;
+final isRegisteredController = StateProvider<bool>((ref) {
+  return !ref.watch(userAuthController).data.notRegistered;
 });
-final userAuthController = StateNotifierProvider(
+final userAuthController = StateNotifierProvider<AuthStateNotifier,GenericState<Auth>>(
   (ref) => AuthStateNotifier(
     GenericState.loading(Auth.notRegistered()),
   ),

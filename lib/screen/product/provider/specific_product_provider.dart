@@ -6,14 +6,16 @@ import 'package:riverpod_fake_store_api/screen/product/repository/product_reposi
 
 import '../../../common/enum/status.dart';
 
-final specificProductProvider =
-    StateNotifierProvider.family<SpecificProductState, Object, int>(
+final specificFamilyProductController =
+    StateNotifierProvider.family<SpecificProductState, GenericState<ProductAbstract>, int>(
   (ref, int id) => SpecificProductState(
     GenericState.loading(NoProduct()),
     id: id,
     ref: ref,
   ),
 );
+
+final specificOverrideProductController=StateNotifierProvider<SpecificProductState,GenericState<ProductAbstract>>((ref) =>throw UnimplementedError());
 
 class SpecificProductState
     extends StateNotifier<GenericState<ProductAbstract>> {

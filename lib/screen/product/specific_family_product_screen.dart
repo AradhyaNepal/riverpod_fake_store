@@ -24,25 +24,29 @@ class _SpecificProductScreenState extends ConsumerState<SpecificFamilyProductScr
   @override
   void initState() {
     super.initState();
-    ref.read(specificProductProvider(widget.id).notifier).fetchData();
+    ref.read(specificFamilyProductController(widget.id).notifier).fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     final previousProduct = getProductFromProvider(widget.id - 1);
     final nextProduct = getProductFromProvider(widget.id + 1);
-    final state = ref.watch(specificProductProvider(widget.id))
-        as GenericState<ProductAbstract>;
+    final state = ref.watch(specificFamilyProductController(widget.id));
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: SizedBox(
         height: size.height,
         width: size.width,
         child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+                "Family"
+            ),
+          ),
           body: Column(
             children: [
               Expanded(
-                child: _SuccessDataWidget(
+                child: _DataAsPerStatusWidget(
                   state: state,
                 ),
               ),
@@ -60,8 +64,7 @@ class _SpecificProductScreenState extends ConsumerState<SpecificFamilyProductScr
   }
 
   ProductAbstract getProductFromProvider(int localId) {
-    return (ref.watch(specificProductProvider(localId))
-            as GenericState<ProductAbstract>)
+    return ref.watch(specificFamilyProductController(localId))
         .data;
   }
 }
@@ -108,8 +111,8 @@ class _NextPreviousDataWidget extends StatelessWidget {
   }
 }
 
-class _SuccessDataWidget extends StatelessWidget {
-  const _SuccessDataWidget({
+class _DataAsPerStatusWidget extends StatelessWidget {
+  const _DataAsPerStatusWidget({
     super.key,
     required this.state,
   });

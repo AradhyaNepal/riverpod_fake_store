@@ -2,12 +2,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_fake_store_api/common/model/state_data.dart';
 import 'package:riverpod_fake_store_api/screen/auth/provider/user_auth_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/model/product.dart';
+import 'package:riverpod_fake_store_api/screen/product/provider/specific_product_provider.dart';
 import 'package:riverpod_fake_store_api/screen/product/repository/product_repository.dart';
 
 import '../../../common/enum/status.dart';
 
 final allProductsController =
-    StateNotifierProvider((ref) => AllProductsList(GenericState.loading([])));
+    StateNotifierProvider.autoDispose((ref) {
+      ref.onDispose(() {
+        ref.invalidate(specificFamilyProductController);
+      });
+      return AllProductsList(GenericState.loading([]));
+    });
 
 class AllProductsList extends StateNotifier<GenericState<List<Product>>> {
   AllProductsList(super.state);
